@@ -1,0 +1,57 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+  Version: 2.1.1
+  Prerelease: $[format('{0:yyyyMMddHHmmss}', pipeline.startTime)]
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Release solution'
+  condition: eq(variables.isMain, true)
+  inputs:
+    command: 'build'
+    projects: 'SchemaGenerator.sln'
+    arguments: '/p:Version=$(Version)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Prerelease solution'
+  condition: eq(variables.isMain, false)
+  inputs:
+    command: 'build'
+    projects: 'SchemaGenerator.sln'
+    arguments: '/p:Version=$(Version)-$(Prerelease)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Test solution'
+  inputs:
+    command: 'test'
+    projects: 'SchemaGenerator.sln'
+    
+- task: NuGetCommand@2  
+  displayName: Pack Nuget Package 
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
+    buildProperties: '-IncludeReferencedProjects'
+
+- task: NuGetCommand@2
+  displayName: Push Nuget Package 
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.SourcesDirectory)/SchemaGenerator/bin/**/*.nupkg;!$$(Build.SourcesDirectory)/SchemaGenerator/bin/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '8cdc488b-0e8f-4ae6-ab92-6cc8b564aedd/daa7dfc6-f270-4785-ad0b-0db93bfca1ff'

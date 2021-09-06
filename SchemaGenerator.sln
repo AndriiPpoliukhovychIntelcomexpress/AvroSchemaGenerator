@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvroSchemaGenerator.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{DF485363-E6D3-47E3-9A82-EC2D0E50C491}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{5BAF9546-8806-4770-BB4C-DF5F9A9E9694}"
+	ProjectSection(SolutionItems) = preProject
+		build\nuget-pkg-pipline.yml = build\nuget-pkg-pipline.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
