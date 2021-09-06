@@ -34,12 +34,6 @@ steps:
     projects: 'SchemaGenerator.sln'
     arguments: '/p:Version=$(Version)-$(Prerelease)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Test solution'
-  inputs:
-    command: 'test'
-    projects: 'SchemaGenerator.sln'
-    
 - task: NuGetCommand@2  
   displayName: Pack Nuget Package 
   inputs:
