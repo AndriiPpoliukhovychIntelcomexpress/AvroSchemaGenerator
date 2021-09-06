@@ -4,12 +4,12 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- dev-with-ci
 
 name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
-  Version: 2.1.1
+  Version: 1.9.0.1
   Prerelease: $[format('{0:yyyyMMddHHmmss}', pipeline.startTime)]
   isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
 
