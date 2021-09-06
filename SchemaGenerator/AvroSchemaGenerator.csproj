@@ -9,6 +9,8 @@
     <PackageTags>Apache Avro, Avro Schema</PackageTags>
     <PackageIcon>avro-schema.png</PackageIcon>
     <PackageIconUrl />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.9.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
