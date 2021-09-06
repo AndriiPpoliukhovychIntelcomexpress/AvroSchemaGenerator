@@ -38,7 +38,7 @@ steps:
   displayName: Pack Nuget Package 
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.csproj'
+    packagesToPack: '**\*.csproj;!**\*.Tests.csproj'
     versioningScheme: 'off'
     buildProperties: '-IncludeReferencedProjects'
 
