@@ -1477,7 +1477,7 @@ namespace AvroSchemaGenerator
             };
 
             List<object> lp = null;
-            if (p.PropertyType.IsNullable())
+            if (!p.GetSchemaCustomAttributes().required)
             {
                 lp = new List<object>() {"null", dp};
             }
